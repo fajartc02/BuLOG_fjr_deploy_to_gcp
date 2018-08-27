@@ -48,7 +48,6 @@ export default {
           sortable: false,
           value: "title"
         },
-        // { text: "description", value: "description", align: "Center" },
         { text: "Created At", value: "createdAt", align: "Center" },
         { text: "Actions", value: "Actions", align: "Center" }
       ],
@@ -71,11 +70,11 @@ export default {
       let token = localStorage.getItem("token");
       if (token) {
         axios
-          .get(`http://localhost:3000/articles`, {
+          .get(`http:///35.185.177.226/articles`, {
             headers: {token: localStorage.getItem('token')}
           })
           .then(result => {
-            this.articles = result.data.data;
+            this.articles = result.data.data
           })
           .catch(err => {
             console.log(err);

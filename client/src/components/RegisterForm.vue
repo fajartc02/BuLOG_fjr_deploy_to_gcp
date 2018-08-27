@@ -67,18 +67,21 @@ export default {
       v => !!v || "Password is required",
       v => (v && v.length <= 10) || "Password must be less than 10 characters"
     ],
-    image: '',
+    image: "",
     checkbox: false
   }),
 
   methods: {
     Register() {
       let formData = new FormData();
-      formData.append("image", this.image);
+      formData.append("image", this.image)
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViN2Q0YTg5ZWE0Mzk2MTE2ZGJkNTllZiIsImVtYWlsIjoiZmFqYXJAbWFpbC5jb20iLCJuYW1lIjoiZmFqYXIgdHJpIGNhaHlvbm8iLCJpYXQiOjE1MzUzODQ1OTR9.SVwGS118sOrDkEl56sVa9nH57JFYEOQd8de3rkvc-fY'
       if (this.$refs.form.validate()) {
         // Native form submission is not yet supported
         axios
-          .post("http://35.185.177.226/articles/upload", formData)
+          .post("http://35.185.177.226/articles/upload", formData, {
+            headers: { token: token }
+          })
           .then(response => {
             axios
               .post("http://35.185.177.226/signup", {
@@ -89,8 +92,8 @@ export default {
               })
               .then(result => {
                 // console.log(result);
-                swal("Success to register", "", "success");
-                this.$router.push("/login");
+                swal("Success to register", "", "success")
+                this.$router.push("/login")
               })
               .catch(err => {
                 console.log(err);
@@ -101,7 +104,7 @@ export default {
     },
 
     getImage(url) {
-      this.image = url.target.files[0]
+      this.image = url.target.files[0];
     },
 
     clear() {

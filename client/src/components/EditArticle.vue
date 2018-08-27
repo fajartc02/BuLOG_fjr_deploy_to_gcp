@@ -80,6 +80,7 @@ export default {
       })
       .then(article => {
         swal('Success To update', 'success')
+        this.getArticles()
         this.$router.push('/article')
       })
       .catch(err => {
@@ -88,7 +89,24 @@ export default {
     },
     clear() {
       this.$refs.form.reset();
-    }
+    },
+    getArticles() {
+      let token = localStorage.getItem("token");
+      if (token) {
+        axios
+          .get(`http:///35.185.177.226/articles`, {
+            headers: {token: localStorage.getItem('token')}
+          })
+          .then(result => {
+            this.articles = result.data.data
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        swal("You must be login", "", "info");
+      }
+    },
   },
   created() {
     let id = this.$route.params.id;

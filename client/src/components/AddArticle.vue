@@ -83,7 +83,7 @@ export default {
           )
           .then(result => {
             swal("Success to add article", "", "success")
-            this.$router.go()
+            // this.$router.go() // *
             self.$emit("article-added", result.data.data._id);
           })
           .catch(err => {
@@ -91,7 +91,7 @@ export default {
           });
         })
         .catch(err => {
-
+          console.log(err);
         })
       }
     },

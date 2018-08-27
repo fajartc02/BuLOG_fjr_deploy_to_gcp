@@ -105,7 +105,9 @@ export default {
       })
       .then(response => {
         swal('Success to comment', 'success')
-        this.$router.go()
+        // this.$router.go()
+        let id = this.$route.params.id;
+        this.getArticles(id)
       })
       .catch(err => {
         console.log(err);
@@ -119,11 +121,13 @@ export default {
         }
         let id = this.$route.params.id
         axios.put(`http://35.185.177.226/articles/comment/delete/${id}`, data, {
-          headers: {token: localStorage.getItem('token')}
+          headers: { token: localStorage.getItem('token') }
         })
         .then(() => {
           swal('Success to delete comment', 'success')
-          this.$router.go()
+          // this.$router.go()
+          let id = this.$route.params.id;
+          this.getArticles(id)
         })
         .catch(err => {
           console.log(err);
@@ -132,7 +136,7 @@ export default {
     },
   },
   created() {
-    let id = this.$route.params.id;
+    let id = this.$route.params.id
     this.getArticles(id)
     console.log(this.nameUser); // ini props data dari parent yang dikirim dari children yg lain
   },
